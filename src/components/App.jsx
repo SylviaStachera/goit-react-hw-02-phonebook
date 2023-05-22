@@ -1,10 +1,8 @@
-import PhoneBook from './PhoneBook/PhoneBook';
-import AddName from './AddName/AddName';
-import AddNumber from './AddNumber/AddNumber';
-import Contacts from './Contacts/Contacts';
+import ContactForm from './ContactForm/ContactForm';
+import ContactList from './ContactList/ContactList';
 // import FilterContacts from './FilterContacts/FilterContacts';
+// import { nanoid } from 'nanoid';
 import { Component } from 'react';
-import { nanoid } from 'nanoid';
 
 export class App extends Component {
   constructor() {
@@ -18,37 +16,14 @@ export class App extends Component {
         { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
       ],
       // contacts: [],
-      name: '',
-      number: '',
       filter: '',
     };
   }
 
-  handleSubmit = evt => {
-    evt.preventDefault();
-
-    const { name, number } = this.state;
-    const newContact = { id: nanoid(), name, number };
-
+  handleContactAdd = newContact => {
     this.setState(prevState => ({
       contacts: [...prevState.contacts, newContact],
     }));
-
-    this.resetForm();
-  };
-
-  handleChange = evt => {
-    const { name, value } = evt.currentTarget;
-
-    this.setState({ [name]: value });
-  };
-
-  resetForm = () => {
-    this.setState({
-      name: '',
-      number: '',
-      filter: '',
-    });
   };
 
   // findContact = filter => {
@@ -67,12 +42,9 @@ export class App extends Component {
     return (
       <div className="wraper">
         <h1>Phonebook</h1>
-        <PhoneBook onSubmit={this.handleSubmit}>
-          <AddName onChange={this.handleChange} />
-          <AddNumber onChange={this.handleChange} />
-        </PhoneBook>
-        <Contacts findContact={this.findContact}>
-          {/* <FilterContacts onChange={this.findContact} /> */}
+        <ContactForm />
+        <h2>Contacts</h2>
+        <ContactList onSubmit={this.handleContactAdd}>
           {contacts.map(contact => {
             return (
               <li key={contact.id}>
@@ -81,7 +53,7 @@ export class App extends Component {
               </li>
             );
           })}
-        </Contacts>
+        </ContactList>
       </div>
     );
   }
