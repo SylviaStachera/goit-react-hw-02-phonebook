@@ -29,11 +29,12 @@ export class App extends Component {
   handleChange = evt => {
     this.setState({ name: evt.target.value });
   };
+
   render() {
     const { contacts } = this.state;
 
     return (
-      <div>
+      <div className='wraper'>
         <h1>Phonebook</h1>
         <PhoneBook onSubmit={this.handleSubmit} onChange={this.handleChange} />
         <Contacts>

@@ -1,3 +1,5 @@
+import css from './PhoneBook.module.css';
+
 const { Component } = require('react');
 
 class PhoneBook extends Component {
@@ -5,10 +7,11 @@ class PhoneBook extends Component {
     const { onSubmit, onChange } = this.props;
 
     return (
-      <form onSubmit={onSubmit}>
-        <label>
+      <form className={css.form} onSubmit={onSubmit}>
+        <label className={css.label}>
           Name
           <input
+            className={css.input}
             type="text"
             name="name"
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -17,7 +20,9 @@ class PhoneBook extends Component {
             onChange={onChange}
           />
         </label>
-        <button type="submit">Add contact</button>
+        <button className={css['btn-submit']} type="submit">
+          Add contact
+        </button>
       </form>
     );
   }
