@@ -1,6 +1,6 @@
 import ContactForm from './ContactForm/ContactForm';
 import ContactList from './ContactList/ContactList';
-// import FilterContacts from './FilterContacts/FilterContacts';
+import Filter from './Filter/Filter';
 // import { nanoid } from 'nanoid';
 import { Component } from 'react';
 
@@ -15,6 +15,7 @@ export class App extends Component {
         { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
         { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
       ],
+
       filter: '',
     };
   }
@@ -28,12 +29,20 @@ export class App extends Component {
 
   // Metoda getContacts zwraca aktualną listę kontaktów.
   getContacts = () => {
-    const { contacts } = this.state;
-    return contacts;
+    const { contacts, filter } = this.state;
+    const normalizeName = filter.toLowerCase();
+
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(normalizeName)
+    );
+  };
+
+  changeFilter = evt => {
+    this.setState({ filter: evt.currentTarget.value });
   };
 
   render() {
-    // const { contacts } = this.state;
+    const { filter, contacts } = this.state;
 
     return (
       <div className="wraper">
@@ -41,7 +50,12 @@ export class App extends Component {
         <ContactForm onSubmit={this.handleSubmit} />
 
         <h2>Contacts</h2>
-        <ContactList contacts={this.getContacts()} />
+        <Filter value={filter} onChange={this.changeFilter} />
+        {contacts.length ? (
+          <ContactList contacts={this.getContacts()} />
+        ) : (
+          <p>No contact!</p>
+        )}
       </div>
     );
   }
