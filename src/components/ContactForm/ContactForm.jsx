@@ -1,33 +1,27 @@
 import { nanoid } from 'nanoid';
-
 import css from './ContactForm.module.css';
+
 const { Component } = require('react');
 
 class ContactForm extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      name: '',
-      number: '',
-    };
-  }
-
-  handleChange = evt => {
-    const { name, value } = evt.currentTarget;
-
-    this.setState({ [name]: value });
+  state = {
+    name: '',
+    number: '',
   };
 
   handleSubmit = evt => {
     evt.preventDefault();
-
     const { name, number } = this.state;
-    const newContact = { id: nanoid(), name, number };
 
+    const newContact = { id: nanoid(), name, number };
     this.props.onSubmit(newContact);
 
     this.resetForm();
+  };
+
+  handleChange = evt => {
+    const { name, value } = evt.currentTarget;
+    this.setState({ [name]: value });
   };
 
   resetForm = () => {
@@ -38,10 +32,14 @@ class ContactForm extends Component {
   };
 
   render() {
-    const { onSubmit } = this.props;
+    const { name, number } = this.state;
 
     return (
-      <form className={css.form} onSubmit={onSubmit}>
+      <form
+        className={css.form}
+        initialValues={{ name, number }}
+        onSubmit={this.handleSubmit}
+      >
         <label className={css.label}>
           Name
           <input
@@ -51,6 +49,7 @@ class ContactForm extends Component {
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
             title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
             required
+            value={name}
             onChange={this.handleChange}
           />
         </label>
@@ -63,9 +62,11 @@ class ContactForm extends Component {
             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
             required
+            value={number}
             onChange={this.handleChange}
           />
         </label>
+
         <button className={css['btn-submit']} type="submit">
           Add contact
         </button>

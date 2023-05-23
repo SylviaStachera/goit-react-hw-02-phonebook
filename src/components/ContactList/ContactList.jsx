@@ -1,14 +1,17 @@
-const { Component } = require('react');
+const ContactList = ({ contacts }) => {
 
-class ContactList extends Component {
-  render() {
-    const { children } = this.props;
-    return (
-      <div>
-        <ul>{children}</ul>
-      </div>
-    );
-  }
-}
+  return (
+    <ul>
+      {contacts.map(contact => {
+        return (
+          <li key={contact.id}>
+            <span>{contact.name}</span>
+            <span>: {contact.number}</span>{' '}
+          </li>
+        );
+      })}
+    </ul>
+  );
+};
 
 export default ContactList;
