@@ -9,21 +9,26 @@ class ContactForm extends Component {
     number: '',
   };
 
+  // Metoda handleSubmit jest wywoływana po zatwierdzeniu formularza (btn) i dodaje nowy kontakt do listy za pomocą przekazanej przez propsy funkcji onSubmit.
   handleSubmit = evt => {
     evt.preventDefault();
     const { name, number } = this.state;
 
     const newContact = { id: nanoid(), name, number };
+
+    //this.props.onSubmit(newContact), gdzie newContact jest przekazywany do komponentu App jako argument funkcji onSubmit. W komponencie App, ta funkcja obsługuje dodawanie nowego kontaktu do listy kontaktów poprzez aktualizację stanu komponentu App przy użyciu metody setState.
     this.props.onSubmit(newContact);
 
     this.resetForm();
   };
 
+  // Metoda handleChange jest wywoływana przy zmianie wartości pól formularza i aktualizuje odpowiednie wartości w stanie komponentu.
   handleChange = evt => {
     const { name, value } = evt.currentTarget;
     this.setState({ [name]: value });
   };
 
+  // Metoda resetForm resetuje wartości pól formularza do pustych.
   resetForm = () => {
     this.setState({
       name: '',
@@ -35,11 +40,7 @@ class ContactForm extends Component {
     const { name, number } = this.state;
 
     return (
-      <form
-        className={css.form}
-        initialValues={{ name, number }}
-        onSubmit={this.handleSubmit}
-      >
+      <form className={css.form} onSubmit={this.handleSubmit}>
         <label className={css.label}>
           Name
           <input

@@ -1,7 +1,7 @@
 import ContactForm from './ContactForm/ContactForm';
 import ContactList from './ContactList/ContactList';
 // import FilterContacts from './FilterContacts/FilterContacts';
-import { nanoid } from 'nanoid';
+// import { nanoid } from 'nanoid';
 import { Component } from 'react';
 
 export class App extends Component {
@@ -19,13 +19,14 @@ export class App extends Component {
     };
   }
 
-  handleSubmit = dataContact => {
-    dataContact.id = nanoid();
+  // Metoda handleSubmit jest wywoływana przy dodawaniu nowego kontaktu i dodaje nowy kontakt do listy kontaktów w stanie komponentu. NewContact pochodzi z conactForm z metody handleSubmit. Po klinięciu w btn, nowy konatk wysyłany jest tu
+  handleSubmit = newContact => {
     this.setState(prevState => ({
-      contacts: [...prevState.contacts, dataContact],
+      contacts: [...prevState.contacts, newContact],
     }));
   };
 
+  // Metoda getContacts zwraca aktualną listę kontaktów.
   getContacts = () => {
     const { contacts } = this.state;
     return contacts;
