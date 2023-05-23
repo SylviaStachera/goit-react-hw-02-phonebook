@@ -1,8 +1,11 @@
+import css from './Filter.module.css';
+
 const Filter = ({ value, onChange }) => {
   return (
-    <label>
+    <label className={css.label}>
       Find contacts by name
       <input
+        className={css.input}
         type="text"
         value={value}
         autoComplete="off"

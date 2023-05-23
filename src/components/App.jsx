@@ -1,7 +1,7 @@
 import ContactForm from './ContactForm/ContactForm';
 import ContactList from './ContactList/ContactList';
 import Filter from './Filter/Filter';
-// import { nanoid } from 'nanoid';
+
 import { Component } from 'react';
 
 export class App extends Component {
@@ -20,7 +20,7 @@ export class App extends Component {
     };
   }
 
-  // Metoda handleSubmit jest wywoływana przy dodawaniu nowego kontaktu i dodaje nowy kontakt do listy kontaktów w stanie komponentu. NewContact pochodzi z conactForm z metody handleSubmit. Po klinięciu w btn, nowy konatk wysyłany jest tu
+  // Metoda handleSubmit jest wywoływana przy dodawaniu nowego kontaktu i dodaje nowy kontakt do listy kontaktów w stanie komponentu. NewContact pochodzi z ContactForm z metody handleSubmit. Po klinięciu w btn, nowy konatk wysyłany jest tu.
   handleSubmit = newContact => {
     const { contacts } = this.state;
     const isEqual = contacts.find(
@@ -50,6 +50,12 @@ export class App extends Component {
     this.setState({ filter: evt.currentTarget.value });
   };
 
+  deleteContact = id => {
+    this.setState(prevState => ({
+      contacts: prevState.contacts.filter(conact => conact.id !== id),
+    }));
+  };
+
   render() {
     const { filter, contacts } = this.state;
 
@@ -61,7 +67,10 @@ export class App extends Component {
         <h2>Contacts</h2>
         <Filter value={filter} onChange={this.changeFilter} />
         {contacts.length ? (
-          <ContactList contacts={this.getContacts()} />
+          <ContactList
+            contacts={this.getContacts()}
+            onDelete={this.deleteContact}
+          />
         ) : (
           <p>No contact!</p>
         )}
