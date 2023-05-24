@@ -23,12 +23,12 @@ export class App extends Component {
   // Metoda handleSubmit jest wywoływana przy dodawaniu nowego kontaktu i dodaje nowy kontakt do listy kontaktów w stanie komponentu. NewContact pochodzi z ContactForm z metody handleSubmit. Po klinięciu w btn, nowy konatk wysyłany jest tu.
   handleSubmit = newContact => {
     const { contacts } = this.state;
-    const isEqual = contacts.find(
+    const isExists = contacts.find(
       conact => conact.name.toLowerCase() === newContact.name.toLowerCase()
     );
 
-    if (isEqual) {
-      return alert(`${isEqual.name} is already in contacts.`);
+    if (isExists) {
+      return alert(`${isExists.name} is already in contacts.`);
     }
 
     this.setState(prevState => ({
@@ -65,7 +65,7 @@ export class App extends Component {
         <ContactForm onSubmit={this.handleSubmit} />
 
         <h2>Contacts</h2>
-        <Filter value={filter} onChange={this.changeFilter} />
+        <Filter value={filter}  onChangeFilter={this.changeFilter} />
         {contacts.length ? (
           <ContactList
             contacts={this.getContacts()}

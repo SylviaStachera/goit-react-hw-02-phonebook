@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import css from './Filter.module.css';
 
-const Filter = ({ value, onChange }) => {
+const Filter = ({ value, onChangeFilter }) => {
   return (
     <label className={css.label}>
       Find contacts by name
@@ -11,7 +11,7 @@ const Filter = ({ value, onChange }) => {
         value={value}
         autoComplete="off"
         placeholder="Search name..."
-        onChange={onChange}
+        onChange={onChangeFilter}
       />
     </label>
   );
